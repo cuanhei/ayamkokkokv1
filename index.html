@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="main.css">
+    <script src="main.js"></script>
+
+    <title>Ayam Kok Kok</title>
+
+    <style>
+        .SmallerScreen {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .message {
+            max-width: 600px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        div#undermenu{
+                clear: both;
+                height: 450px;
+                background-color: rgba(255, 255, 255, 0.128);
+                margin: 60px;
+                margin-bottom: 0px;
+                border-radius: 30px;
+        }
+        div#undermenu > div{
+            display: inline-block; /* Go research*/
+            margin:60px auto auto 100px;
+        }
+        div#undermenu > div > h1{
+            font-weight: bold;
+            font-size: 45px;
+        }
+        div#undermenu > div button{
+            margin-top: 50px;
+            font-weight: bold;
+            font-size: 17px;
+            background-color: rgb(30, 129, 0);
+            color: white;
+            border: none;
+            border-radius: 22.5px;
+            height: 45px;
+            width: 150px;
+            transition: all 0.8s;
+            cursor: pointer;
+        }
+        div#undermenu > div button:hover{
+            padding-left: 20px;
+            background-color: rgb(53, 175, 53);
+        }
+        div.movingImg{
+            margin: 0px;
+            position: relative;
+            top: -375px;
+        }
+        div.movingImg div{
+            transform: scale(0.5);
+            margin: 0px;
+            right: 0;
+            position: absolute;
+            float: right;
+            width: 25%;
+            height: 300px;
+            border-radius: 20px;
+            border: 5px solid white;
+        }
+        div.movingImg img{
+            border-radius: 10px;
+            width: 100%;
+            height: 100%;
+        }
+        div#movingImg1{
+            opacity: 0;
+            animation: slideshow 8s infinite 0s;
+            animation-fill-mode: none;
+        }
+        div#movingImg2{
+            opacity: 0;
+            animation: slideshow 8s infinite 2s;
+        }
+        div#movingImg3{
+            opacity: 0;
+            animation: slideshow 8s infinite 4s;
+        }
+        div#movingImg4{
+            opacity: 0;
+            animation: slideshow 8s infinite 6s;
+        }
+        h1#news{
+            margin-top: 10%;
+            text-align: center;
+            padding: 1%;
+            background-color: rgb(60, 60, 60);
+            color: yellow;
+            margin-bottom: 0;
+        }
+        div.news{
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            background-color: rgb(28, 28, 28);
+        }
+        div.chef > h1{
+            border-bottom: 4px solid white;
+            padding-top: 30px;
+            margin: 0px;
+            color: white;
+            text-align: center;
+            clear: both;
+        }
+        .flip-card1,.flip-card2,.flip-card3 {
+            margin: 40px 80px 40px 80px;
+            background-color: transparent;
+            width: 300px;
+            height: 400px;
+            perspective: 1000px;
+        }
+        .chef1flip,.chef2flip,.chef3flip {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+        
+        .flip-card1:hover .chef1flip,.flip-card2:hover .chef2flip,.flip-card3:hover .chef3flip{
+            transform: rotateY(180deg);
+        }
+        
+        .chef1front, .chef1back ,.chef2front, .chef2back,.chef3front, .chef3back{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+        
+        .chef1front,.chef2front,.chef3front {
+            border-radius: 8px;
+            background-color: #ffffff;
+            color: black;
+        }
+        
+        .chef1back,.chef2back,.chef3back {
+            border-radius: 5px;
+            background-color: #ffffff;
+            color: rgb(0, 0, 0);
+            transform: rotateY(180deg);
+        }
+
+        .chef button, button#ramsybutton{
+            color: white;
+            font-weight: bold;
+            margin-top: 80px;
+            border: none;
+            background-color: black;
+            border-radius: 20px;
+            height: 40px;
+            width: 150px;
+            transition: all 0.3s;
+        }
+        .chef button:hover, button#ramsybutton:hover{
+            background-color: rgb(38, 177, 38);
+        }
+
+        @keyframes slideshow{
+            0%{
+                right:0;opacity: 0;
+                transform: scale(0.3);
+            }
+            25%{
+                right:300px;
+                transform: scale(1);opacity: 1;
+            }
+            45%{
+                right: 500px;
+                display: none;opacity: 0;
+                transform: scale(0.3)
+            }
+        }
+        @media (max-width: 1200px) {
+            .PCScreen {
+                display: none;
+            }
+            .SmallerScreen{
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="SmallerScreen">
+        <div class="message">
+            <h1>Sorry, this website is not supported on mobile devices.</h1>
+            <p>Please access this website from a desktop or laptop computer for the best experience.</p>
+        </div>
+    </div>
+ 
+    <div class="PCScreen">
+
+        <header>
+            <div id="logomenu">
+                <div id="logo">
+                    Ayam Kok Kok
+                </div>
+                <div id="menu">
+                    <a id="currentmenu" href="index.html">Home</a>
+                    <a href="aboutUs.html">About Us</a>
+                    <a href="product.html">Product</a>
+                    <a href="contactUs.html">Contact Us</a>
+        
+                </div>
+            </div>
+        </header>
+        <div id="undermenu">
+            <div>
+                <h1>GOOD MOOD</h1>
+                <p>Some delicious food are ready to serve .We provide healthy<br>
+                    food and good service.We are the best restaurant in Malaysia. <br>
+                    We are the restaurant that they mention as we don't sell <br>
+                    quantity we sell quality .Good food form a GOOD MOOD !</p>
+
+                <a href="product.html"><button>More >></button></a>
+            </div>
+        </div>
+        
+        <div class="movingImg">
+            <div id="movingImg1">
+                <img src="img/food1.jpg" style="width:100%">
+            </div>
+            <div id="movingImg2">
+                <img src="img/food2.jpg" style="width:100%">
+            </div>
+            <div id="movingImg3">
+                <img src="img/food3.jpg" style="width:100%">
+            </div>
+            <div id="movingImg4">
+                <img src="img/food4.jpg" style="width:100%">
+            </div>
+        </div>
+
+        <h1 id="news">NEWS</h1>
+        <div class="news">
+            <div class="flip-card1">
+                <div class="chef1flip">
+                <div class="chef1front"><img src="img/chef.png" alt="Avatar" style="margin-top: 50px; width:250px;height:350px;"></div>
+                <div class="chef1back">
+                    <h1 style="margin-top: 80px;">LIM CUAN HEI</h1> 
+                    <h4>HEAD CHEF</h4> 
+                    <p>The chef that cook the main dishes</p>
+                    <a href="about.html#limcuanhei"><button>More</button></a>
+                </div>
+                </div>
+            </div>
+            <div class="flip-card2">
+                <div class="chef2flip">
+                    <div class="chef2front"><img src="img/chef2.png" alt="Avatar" style="width:300px;height:400px;"></div>
+                    <div class="chef2back">
+                    <h1 style="margin-top: 80px;">CUAN HEI LIM</h1> 
+                    <h4>SECOND CHEF</h4> 
+                    <p>The chef that cook the second dishes</p>
+                    <a href="about.html#cuanheilim"><button>More</button></a>
+                    </div>
+                </div>
+            </div>
+            <div class="flip-card3">
+                <div class="chef3flip">
+                    <div class="chef3front"><img src="img/chef3.png" alt="Avatar" style="margin-top: 60px; width:310px;height:340px;"></div>
+                    <div class="chef3back">
+                    <h1 style="margin-top: 80px;">HEI CUAN LIM</h1> 
+                    <h4>THIRD CHEF</h4> 
+                    <p>The chef that cook the third dishes</p>
+                    <a href="about.html#heicuanlim"><button>More</button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Copyright © 2024 AyamKokKok All Rights Reserved</p>
+        </footer>
+
+    </div>
+
+</body>
+</html>

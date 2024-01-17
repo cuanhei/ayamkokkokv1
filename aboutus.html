@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="restaurant,food,malaysia food, ayam kok kok, chicken kok kok, chicken rice, penang food">
+    
+    <link rel="stylesheet" href="main.css">
+    <script src="main.js"></script>
+
+    <title>Ayam Kok Kok</title>
+
+    <style>
+        #bigaboutus{
+            transition: all 2s;
+            animation: intro 4s;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #bigaboutus > h1 {
+            text-align: center;
+            vertical-align: middle;
+            font-size: 12em;
+            background: url(img/food1.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            background-attachment:fixed;
+            background-clip: text; /* reference https://codepen.io/foxbeefly/pen/QRMGwg IDK why error also */
+            -webkit-text-fill-color: transparent;
+        }
+
+        a#swipedown{
+            margin-top: 50px;
+            margin-bottom: 120px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 100px;
+            font-weight: bold;
+            text-decoration: none;
+            position: relative; /* Go research */
+            animation: slideDown infinite 2s;
+        }
+        h1,h2,h3,h4,h5,h6{
+            color: white;
+            font-weight: bold;
+        }
+        .divh1{
+            padding-top: 20px;
+            padding-left: 20px; 
+            margin-bottom: 0px;
+        }
+        p{
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            letter-spacing: 0.5px;
+            color: white;
+            font-size: 15px;
+        }
+        .food,.chef,.history,.kitchen{
+            margin-left: 60px;
+            margin-right: 60px;
+            background-color: rgba(32, 32, 32, 0.755);
+            margin-bottom: 150px;
+        }
+        .imgfixed{
+            width: 90%;
+            height: 500px;
+            background-attachment: fixed;
+            background-size: cover;
+            margin: auto;
+            background-repeat: no-repeat;
+        }
+        .chefhr{
+            width: 50%; 
+            border: 1px solid rgba(255, 255, 255, 0.379);
+        }
+        .chefp{
+            margin: 0px; 
+            margin-bottom: 120px; 
+            color: rgba(255, 255, 255, 0.579);
+            font-size: 0.7em;
+        }
+        .historytime{
+            text-align: center;
+            padding: 10px;
+            box-shadow: 0 0 5px 1px black;
+            clear: both; 
+            float: left;
+        }
+        .hidden{
+            box-shadow: 0 0 5px 1px black;
+            width: 50%;
+            padding: 20px;
+            margin-left: 30%;
+            opacity: 0;
+            transition: all 3s;
+            transform: translateX(100%);
+        }
+        .show{
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .hidden > img,.show > img{
+            width: 70%; 
+        }
+        .foot{
+            color:#f0f9ff;
+            background-color:#282d32;
+        }
+
+        footer{
+            border: 1px white;
+            border-style: double none none none;
+            text-align: center;
+        }
+
+        .foot h3{
+            margin-bottom:12px;
+            font-weight:bold;
+            font-size:16px;
+        }
+
+        .foot ul{
+            padding:0;
+            list-style:none;
+            line-height:1.6;
+            font-size:14px;
+            margin-bottom:0;
+        }
+
+        .foot ul a{
+            color:#999DA0;
+            text-decoration:none;
+        }
+
+        .foot ul a:hover{
+            opacity:0.8;
+        }
+
+        button#insta,button#facebook,button#twitter,button#email,button#phone{
+            border-radius: 50%;
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+
+        button#insta:hover,button#facebook:hover,button#twitter:hover,button#email:hover,button#phone:hover{
+            transform: scale(1.2);
+        }
+
+        .row{
+            display: flex;
+            justify-content: center;
+            border-bottom: 1px solid white;
+            width: 70%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .col1{
+            text-align: left;
+        }
+
+        .col1,.col2,.col3{
+            width: 20%;
+            justify-content: center;
+            padding-bottom: 10px;
+        }
+
+        .resdesc{
+            color: #999DA0;
+            width: 70%;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .open-button {
+            background-color:#B9BBB6;
+            padding: 16px;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            opacity: 0.8;
+            position: fixed;
+            bottom: 69px;
+            right: 28px;
+            width: 100px;
+        }
+
+        img.message{
+            width: 30px;
+            height: 30px;
+            border-radius: 0%;
+            border: none;
+        }
+
+        .chat-popup {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            right: 15px;
+            z-index: 9;
+        }
+
+        .form-container {
+            max-width: 300px;
+            padding: 5px;
+            background-color:#B9BBB6;
+            border-top-left-radius: 50px;
+            border-top-right-radius: 50px;
+            border-style: groove groove none groove;
+        }
+
+        .form-container textarea {
+            width: 95%;
+            margin: 5px 0 22px 0;
+            border: none;
+            background: #f1f1f1;
+            resize: none;
+            min-height: 200px;
+            border-style: ridge;
+        }
+
+        .form-container textarea:focus {
+            background-color: #ddd;
+            outline: none;
+        }
+
+        .form-container .btn {
+            background-color: gray;
+            color: white;
+            padding: 16px 20px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            margin-bottom:10px;
+            opacity: 0.8;
+        }
+
+        h1.msgus{
+            color: black;
+        }
+        @keyframes slideDown {
+            0%{opacity: 0; top: 0px;}
+            50%{opacity: 1; top: 40px;}
+            100%{opacity: 0; top: 0px;}
+        }
+        @keyframes intro {
+            from{opacity: 0; 
+                margin-left: 500px;
+            }
+            to{opacity: 1;
+            margin-left: 10px;
+            }
+            
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div id="logomenu">
+            <div id="logo">
+                Ayam Kok Kok
+            </div>
+            <div id="menu">
+                <a href="index.html">Home</a>
+                <a id="currentmenu" href="aboutUs.html">About Us</a>
+                <a href="product.html">Product</a>
+                <a href="contactUs.html">Contact Us</a>
+    
+            </div>
+        </div>
+    </header>
+    <div id="bigaboutus">
+        <h1 style="clear: both;">ABOUT US</h1>
+    </div>
+    <hr>
+
+    <a id="swipedown" href="#footer">&#8744;</a>
+
+    <div class="food" id="food">
+        <h1 class="divh1">FOOD</h1>
+        <hr>
+        <p style="margin-left: 50px; margin-right: 50px; margin-bottom: 20px; margin-top: 20px;">
+        At <b>GOOD MOOD</b>, we invite you on a gastronomic journey that tantalizes your taste buds and leaves you craving for more. Our culinary artisans have crafted 
+        a menu that reflects both tradition and innovation, ensuring a dining experience like no other.Begin your culinary adventure with our appetizers, where every 
+        bite is a burst of flavor and creativity. From our signature <b>GOOD MOOD</b> Spring Rolls, a delightful fusion of crispy goodness and savory fillings, to the
+        mouthwatering Charred Shrimp Skewers that perfectly blend smoky flavors with zesty marinades, you'll embark on a flavorful voyage from the very first course.
+
+
+        For the main course, our menu offers a symphony of choices. Savor the succulent tenderness of our special dish, a dish that's been 
+        perfected over generations to bring you an authentic taste of tasty. Or perhaps you're in the mood for something modern and adventurous? Try our 
+        fusion dish, a harmonious blend of global flavors that will delight your palate.No meal at <b>GOOD MOOD</b> is complete without experiencing our
+        delectable desserts. Our dessert, a heavenly creation of rich chocolate and velvety cream, is a sweet ending that will linger in your memory.
+        </p>
+        <div class="imgfixed" style="background-image: url(img/breads1.jpg);"></div>
+        <p style="margin-left: 50px; margin-right: 50px;">
+        Good Mood is your passport to a world of delectable delights that will tantalize your taste buds and lift your spirits. Our culinary artisans have meticulously 
+        crafted a menu that blends tradition with innovation, promising an unparalleled dining experience. Begin your gastronomic adventure with our 
+        enticing appetizers, each bite a symphony of flavors. From our signature Good Mood Sampler, an assortment of savory bites that will awaken your palate, to the 
+        fresh and vibrant Caprese Salad, you'll embark on a journey of taste and texture.
+
+
+        Complete your culinary voyage with our irresistible desserts. The Good Mood Chocolate Fondue, a melting pot of indulgence, is the perfect 
+        sweet note to end your meal. Our commitment to sourcing the finest ingredients ensures that each dish is a work of art. Join us at Good Mood and 
+        immerse yourself in a world of flavor, where each bite is an invitation to happiness. Discover culinary bliss in every dish and experience the magic
+        of Good Mood today.
+        </p>
+        <div class="imgfixed" style="background-image: url(img/breads2.jpg);"></div>
+        <p style="margin-left: 50px; margin-right: 50px; margin-bottom: 20px; margin-top: 20px;">
+        At Good Mood, we are passionate about bringing you the freshest and healthiest dining experience possible. Our commitment to quality beginswith the careful 
+        selection of locally sourced, organic ingredients. We believe that great food starts with great ingredients, and we take pride in partnering with local farmers 
+        and producers to ensure that every dish we serve is bursting with flavor and nutrients.
+
+        
+        Our chefs are dedicated to creating culinary masterpieces that not only delight your taste buds but also promote your well-being. We prepare each dish with 
+        a focus on balance, offering a wide range of options to accommodate various dietary preferences. Whether you're in the mood fo a vibrant salad bursting 
+        with crisp, garden-fresh vegetables or a hearty, protein-packed entrée, our menu is designed to cater to your health-conscious choices.
+        </p>
+        <div class="imgfixed" style="background-image: url(img/aboutus4.jpg);"></div>
+        <p style="margin-left: 50px; margin-right: 50px; margin-bottom: 20px; margin-top: 20px; padding-bottom: 50px;">
+        At Good Mood, we understand that a fresh and healthy meal can elevate your mood and brighten your day. We invite you to dine with us and savor 
+        the goodness of our thoughtfully crafted dishes. Join us in celebrating the harmonious blend of flavor, freshness, and wellness that defines our
+        culinary philosophy. Experience the taste of good health at Good Mood.
+
+
+        </p>
+    </div>
+
+    <div class="chef">
+        <div>
+        <h1 class="divh1">CHEF</h1>
+        <hr>
+        <img src="img/chef4.png" style="width: 30%; margin: 100px; float: left;">
+        <h2 style="padding-top: 50px;" id="ramsay">Gordan Ramsay</h2>
+        
+        <p style="margin-right: 40px;">At Good Mood, our culinary journey is guided by the skilled and creative hands of Chef Ramsay, our esteemed Executive Chef. With a passion for food that's as boundless as their imagination, Chef Ramsay is the heartbeat of our kitchen and the architect of every delightful dish that graces our menu.</p>
+        <br><br><br>
+        <hr class="chefhr">
+        <div>
+            <div style="float: left;">
+                <h3 style="margin-bottom: 10px;margin-top: 120px;">Main Chef</h3>
+                <p style="margin: 0px; color: rgba(255, 255, 255, 0.579);font-size: 0.7em;">
+                    The main chef in a restaurant is the culinary artist who <br>
+                    leads the kitchen brigade. With precision and passion, <br>
+                    they create exquisite dishes, bringing flavors to life <br>
+                    with their expertise. Their role demands creativity, <br>
+                    technical skill, and a deep understanding of ingredients,<br>
+                    ensuring each plate is a masterpiece. 
+                </p>
+            </div>
+            <div style="float: right; margin-right: 120px;">
+                <h3 style="margin-bottom: 10px;margin-top: 120px;">Why we choose him as a main chef</h3>
+                <p class="chefp">
+                    A main chef is essential in a restaurant as they lead the <br>
+                    kitchen, maintain culinary standards, innovate menus, ensure <br>
+                    consistency, and help build the restaurant's reputation. <br>
+                    Their role is vital for culinary excellence and business success. <br>
+                    Overall, a main chef is the linchpin that enables a restaurant to <br>
+                    thrive in a competitive culinary landscape.
+                </p>
+            </div>
+        </div>
+        <hr class="chefhr" style="margin-top: 50px; margin-bottom: 50px;">
+        <h3>More about Gordan Ramsay</h3>
+        <p class="chefp" style="margin-bottom: 80px; margin-right: 40px;">   
+        The main chef, often referred to as the head chef or executive chef, is the linchpin of a restaurant's kitchen. Their multifaceted role extends far beyond simply cooking.
+        They are responsible for curating menus that cater to diverse tastes and dietary preferences, keeping them fresh and in tune with culinary trends. Main chefs oversee kitchen
+         operations, managing staff, and ensuring the quality, consistency, and presentation of every dish. They're the driving force behind the creative vision of the restaurant, 
+         infusing their culinary expertise and innovation into each plate. Beyond the culinary aspects, main chefs contribute significantly to a restaurant's reputation, attracting diners, 
+         generating positive reviews, and ultimately, playing a pivotal role in the establishment's success. Their leadership, culinary skills, and dedication are indispensable elements in 
+         creating a memorable dining experience and maintaining the restaurant's competitive edge in the vibrant world of gastronomy.
+        </p>
+        <hr style="margin: 100px;clear: both;">
+
+        <img src="img/chef.png" style="width: 30%; margin: 100px; float: left;">
+        <h2 style="padding-top: 50px;" id="limcuanhei">Lim Cuan Hei</h2>
+        
+        <p style="margin-right: 40px;">The head chef, positioned under the main chef, is a crucial part of the culinary team responsible for executing the culinary vision set by the main chef. They oversee the day-to-day operations of the kitchen, coordinating with sous chefs, cooks, and kitchen staff to ensure that each dish meets the established quality and presentation standards.</p>
+        <br><br><br>
+        <hr class="chefhr">
+        <div>
+            <div style="float: left;">
+                <h3 style="margin-bottom: 10px;margin-top: 120px;">Head Chef</h3>
+                <p style="margin: 0px; color: rgba(255, 255, 255, 0.579);font-size: 0.7em;">
+                    The head chef, a key figure in the culinary hierarchy, is <br>
+                    responsible for the day-to-day kitchen operations. Under<br>
+                    main chef's guidance, they lead the kitchen brigade, ensuring <br>
+                    dishes are prepared to perfection, maintaining quality <br>
+                    standards, and fostering a cohesive kitchen environment. <br>
+                    Their expertise is essential for culinary excellence.
+                </p>
+            </div>
+            <div style="float: right; margin-right: 50px;">
+                <h3 style="margin-bottom: 10px;margin-top: 120px;">Why we choose him as a head chef</h3>
+                <p class="chefp">
+                   He embark on a culinary journey that includes formal culinary <br>
+                   education or apprenticeships to acquire foundational skills. <br>
+                   Continuously refine your cooking techniques and palate by <br>
+                   experimenting with diverse cuisines. Gain extensive experience in <br>
+                   various kitchen roles to develop leadership, time management, and <br>
+                   problem-solving abilities. Cultivate creativity and adaptability.
+                </p>
+            </div>
+        </div>
+        <hr class="chefhr" style="margin-top: 50px; margin-bottom: 50px;">
+        <h3 style="clear: both; margin-left: 90px;">More about Lim Cuan Hei</h3>
+        <p class="chefp" style="margin-bottom: 80px; margin-right: 40px; margin-left: 90px; margin-right: 90px;">   
+            The head chef, often referred to as the executive chef or chef de cuisine, holds a paramount role in the culinary world. At the heart of a restaurant's kitchen, they orchestrate every aspect 
+            of the culinary experience. Their responsibilities encompass crafting menus that captivate diners with innovative and delectable creations, maintaining rigorous quality control to ensure each 
+            dish is a masterpiece, and managing the kitchen brigade with a blend of leadership and precision. With a keen palate for flavor and an innate creativity, head chefs are culinary visionaries, 
+            driving the restaurant's identity and reputation. Years of culinary training, hands-on experience, and a relentless pursuit of excellence are the hallmarks of their journey to the esteemed position of a head chef.
+            A chief duty of the head chef is the meticulous art of menu development. Drawing upon their profound knowledge of ingredients, culinary traditions, and innovative trends, they curate menus that not only tantalize 
+            taste buds but also reflect the unique identity of the establishment. It's their creative genius that brings dishes to life, infusing them with distinctive flavors and artistic presentations that leave an indelible 
+            mark on diners' memories.
+
+        </p>
+        <hr style="margin: 100px;">
+
+        <img src="img/chef2.png" style="width: 30%; margin: 100px; float: left;">
+        <h2 style="padding-top: 50px;" id="cuanheilim">Cuan Hei Lim</h2>
+        
+        <p style="margin-right: 40px;">
+            The second chef, also known as the sous chef, is a vital presence in the kitchen hierarchy. Working closely with the head chef, they shoulder responsibilities like food preparation, kitchen organization, and staff supervision. Sous chefs demonstrate culinary mastery, ensuring each dish adheres to quality and presentation standards.</p>
+        <br><br><br>
+        <hr class="chefhr">
+        <div>
+            <div style="float: left;">
+                <h3 style="margin-bottom: 10px;margin-top: 120px;">Second Chef</h3>
+                <p style="margin: 0px; color: rgba(255, 255, 255, 0.579);font-size: 0.7em;">
+                    The second chef, commonly known as the sous chef, is a crucial <br>
+                    member of a restaurant or culinary establishment's kitchen team. <br>
+                    They hold a senior position in the kitchen hierarchy, assisting <br>
+                    the head chef in various tasks. Sous chefs are responsible for <br>
+                    food preparation, supervising kitchen staff, ensuring food quality, <br>
+                     and maintaining kitchen organization.
+                </p>
+            </div>
+            <div style="float: right; margin-right: 50px;">
+                <h3 style="margin-bottom: 10px;margin-top: 120px;">Why we choose him as a second chef</h3>
+                <p class="chefp">
+                   He possess a strong foundation in culinary arts acquired  <br>
+                   formal culinary education or extensive kitchen experience. <br>
+                   Essential skills include proficiency in various cooking  <br> 
+                   knowledge of diverse cuisines, and a keen palate for flavor combine. <br>
+                   A sous chef must exhibit leadership abilities, effective communicate, <br>
+                   and the capability to manage kitchen staff and resources efficiently.
+                </p>
+            </div>
+        </div>
+        <hr class="chefhr" style="margin-top: 50px; margin-bottom: 50px;">
+        <h3 style="clear: both; margin-left: 90px;">More about Cuan Hei Lim</h3>
+        <p class="chefp" style="margin-bottom: 80px; margin-right: 40px; margin-left: 90px; margin-right: 90px;">   
+            The second chef, commonly known as the sous chef, occupies a pivotal position in the culinary hierarchy, serving as the right-hand person to the 
+            head chef or executive chef. Their role is characterized by versatility and adeptness in the kitchen. Sous chefs share responsibility for food preparation,
+             maintaining kitchen organization, and overseeing kitchen staff.One of their core functions is to assist the head chef in executing the culinary vision. 
+             They ensure that every dish adheres to the established quality and presentation standards, often stepping in to manage kitchen operations during the head chef's absence. 
+             This role demands a deep understanding of various cuisines, cooking techniques, and flavor profiles, allowing sous chefs to bring recipes to life with precision and consistency.
+        </p>
+        <hr style="margin: 100px;">
+
+        <img src="img/chef3.png" style="width: 30%; margin: 100px; float: left;">
+        <h2 style="padding-top: 50px;" id="heicuanlim">Hei Cuan Lim</h2>
+        
+        <p style="margin-right: 40px;">
+            The third chef, often referred to as a line cook or station chef, is a vital team member in a restaurant kitchen. They specialize in a particular station, such as grilling or sautéing, and are responsible for preparing specific dishes, ensuring consistent quality and timely execution during service.</p>
+        <br><br><br>
+        <hr class="chefhr">
+        <div>
+            <div style="float: left;">
+                <h3 style="margin-bottom: 10px;margin-top: 120px;">Third Chef</h3>
+                <p style="margin: 0px; color: rgba(255, 255, 255, 0.579);font-size: 0.7em;">
+                    The third chef, typically known as a line cook or station chef, <br>
+                    is a crucial contributor to a restaurant's culinary team. They <br>
+                    specialize in a particular kitchen station, such as grill, sauté, <br>
+                    or pastry, and are responsible for executing specific dishes on the <br>
+                    menu. With precision and speed, they prepare ingredients, cook <br>
+                    dishes to order, and ensure consistent taste and presentation. 
+            </div>
+            <div style="float: right; margin-right: 50px;">
+                <h3 style="margin-bottom: 10px;margin-top: 120px;">Why we choose her as a third chef</h3>
+                <p class="chefp">
+                    Her skills, passion, and dedication to the culinary arts. Gender <br>
+                    should never be a deciding factor in such selections. What matters <br>
+                    most is her culinary expertise, creativity, work ethic, and ability <br>
+                    to thrive in a demanding kitchen environment. Diversity in the culinary <br>
+                    world enriches the industry by bringing different perspectives and <br>
+                    experiences to the table. 
+                </p>
+            </div>
+        </div>
+        <hr class="chefhr" style="margin-top: 50px; margin-bottom: 50px;">
+        <h3 style="clear: both; margin-left: 90px;">More about Cuan Hei Lim</h3>
+        <p class="chefp" style="margin-bottom: 80px; margin-right: 40px; margin-left: 90px; margin-right: 90px; padding-bottom: 60px;">   
+            A third chef, commonly known as a line cook or station chef, holds a pivotal role in the culinary ensemble of a 
+            restaurant's kitchen. Tasked with specializing in a specific kitchen station or section, their responsibilities extend 
+            far beyond their niche. These culinary craftsmen are entrusted with the meticulous preparation and execution of dishes 
+            unique to their station, whether it's the sizzle of the grill, the finesse of sautéing, or the artistry of pastry-making.
+             Their daily routine revolves around precise ingredient preparation, mastering cooking techniques, and impeccable timing to 
+             ensure each plate reflects the establishment's culinary standards. This role thrives on teamwork, with line cooks working 
+             in harmony with their kitchen peers, and under the leadership of sous chefs and head chefs, to orchestrate the flawless delivery 
+             of orders during peak service hours. In essence, the third chef embodies the heartbeat of a well-organized kitchen, contributing 
+             significantly to the restaurant's ability to provide a consistent and memorable dining experience.
+        </p>
+        </div>
+    </div>
+
+    <div class="history" id="history">
+        <div>
+            <h1 class="divh1">HISTORY</h1>
+            <hr>
+        </div>
+        <div style="margin: 40px;">
+            <div>
+                <div class="historytime">
+                    <h1>1 January 2023</h1>
+                    <p>The name GOOD MOOD decided</p>
+                </div>
+                <div class="hidden" >
+                    <h1 style="box-shadow: 0 0 5px 1px rgb(255, 255, 255); text-align: center; padding-top: 50px; padding-bottom: 50px;"> GOOD MOOD </h1>
+                   <p>we aimed for a name that not only sounded good but also resonated with our target audience.
+                    The chosen name needed to evoke the right emotions and convey the unique experience we were crafting.
+                    Alongside creativity, we had to consider practicalities, ensuring the name was available as a domain and legally compliant.
+                    Through this journey, we learned that a restaurant's name is not just a label; it's a story waiting to be told.
+                    It sets the stage for culinary adventures and leaves a lasting impression on diners, making it a pivotal part of our restaurant's success.
+                </div>
+            </div>
+        </div>
+
+        <div style="margin: 40px;">
+            <div>
+                <div class="historytime">
+                    <h1>2 Febuary 2023</h1>
+                    <p>We finally found a chef</p>
+                </div>
+                <div class="hidden" >
+                   <p>The process of hiring a chef is a pivotal moment in the culinary world, and it's an experience that combines careful consideration, culinary expertise, and a dash of intuition. Our search for the perfect chef to join our restaurant family was an enlightening journey. We started by defining our restaurant's culinary vision, the type of cuisine we aimed to offer, and the character of our kitchen brigade.
+                    Resumes and interviews became our windows into each candidate's culinary journey. We sifted through countless applications, each one telling a unique story of culinary passion and expertise. Meeting the chefs in person, conducting tastings, and observing their kitchen presence gave us valuable insights into their culinary artistry and teamwork.
+                    What truly stood out in this experience was the profound impact a chef can have on a restaurant's identity. It's not just about culinary skills; it's about finding someone who shares the same culinary philosophy, values creativity, and aligns with the restaurant's culture. As we extended an offer to the chef who embodied these qualities, it marked not just the end of a hiring process, but the beginning of an exciting culinary journey together, where their expertise would shape our restaurant's future and delight our diners.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div style="margin: 40px;">
+            <div>
+                <div class="historytime">
+                    <h1>3 March 2023</h1>
+                    <p>We choosed Penang to open our restaurant</p>
+                </div>
+                <div class="hidden" >
+                    <img src="img/morerestaurant.jpg" style="width: 100%;">
+                   <p>Opening a restaurant in Penang, a culinary gem of Malaysia, was an incredible journey that blended cultural immersion, gastronomic exploration, and entrepreneurial spirit. Our experience was marked by the excitement of bringing diverse and authentic flavors to the vibrant food scene of Penang.
+                    From the outset, we delved into Penang's rich food culture, savoring the aromatic delights of hawker stalls, exploring local markets, and connecting with skilled artisans who shared their culinary wisdom. This immersion enabled us to appreciate the nuances of Penang's renowned dishes, from Char Kway Teow to Penang Laksa.
+                    Building a restaurant in Penang involved more than just crafting a menu; it required embracing the island's multicultural essence. We worked closely with local suppliers, forging partnerships that not only ensured the freshness and quality of our ingredients but also contributed to the community's sustainable growth.
+                    Navigating through regulations and permits was a necessary but intricate part of our journey. Collaborating with local authorities and understanding the legal landscape ensured a smooth and compliant opening.</p>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin: 40px;">
+            <div>
+                <div class="historytime">
+                    <h1>4 April 2023</h1>
+                    <p>The chef created some speacial food</p>
+                </div>
+                <div class="hidden" >
+                    <img src="img/food1.jpg" style="width: 100%;">
+                   <p>Creating a new, special food item is a thrilling journey that combines culinary creativity, experimentation, and the pursuit of culinary excellence. It typically begins with inspiration, whether it's a unique ingredient, a cultural influence, or a desire to offer something innovative to diners
+                    The process involves extensive research, experimentation with flavors and techniques, and countless tastings to perfect the recipe. It's an adventure filled with both successes and failures, as each iteration brings valuable insights into what works and what doesn't.
+                    Collaboration with a skilled team of chefs and food enthusiasts is often a rewarding aspect of the experience. They contribute ideas, offer feedback, and help refine the dish until it reaches a level of perfection that aligns with the restaurant's culinary vision.
+                    Once the new dish is ready, there's an exciting moment of anticipation during its introduction to the menu. The reaction of diners and their feedback become a crucial part of the experience. Positive reviews and the satisfaction of seeing guests enjoy the creation make all the effort worthwhile.
+                    Creating a special food item is not just about crafting a dish; it's about telling a story through flavors and enhancing the dining experience. It's a journey that celebrates culinary artistry and innovation while delighting the senses of those who savor it.</p>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin: 40px;">
+            <div>
+                <div class="historytime">
+                    <h1>5 May 2023</h1>
+                    <p>We get suggested by Michelin</p>
+                </div>
+                <div class="hidden" >
+                    <img src="aboutus2.jpg" style="width: 100%;">
+                   <p>It often begins with a sense of anticipation and excitement as you enter the doors of a Michelin-starred restaurant, knowing that you're about to embark on a culinary journey like no other.
+                    The meticulous attention to detail, from the elegant table settings to the well-thought-out menu, immediately sets the stage for what's to come. The dishes that arrive are not merely meals but exquisite works of art, carefully crafted by talented chefs who have honed their skills to perfection.
+                    Each bite is a revelation, an explosion of flavors and textures that dance on the palate. The creativity and innovation that go into every dish are awe-inspiring, and the use of premium ingredients elevates the experience to unparalleled heights.
+                    The attentive and knowledgeable staff add to the experience, providing insights into the dishes, wine pairings, and the restaurant's philosophy. The seamless service ensures that you're guided through a culinary journey that leaves a lasting impression and a newfound appreciation for the art of fine dining. It's an experience that lingers in your memory, sparking a desire to explore the world of gastronomy further.</p>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin: 40px;">
+            <div>
+                <div class="historytime">
+                    <h1>24 September 2023</h1>
+                </div>
+                <div class="hidden" >
+                    
+                   <p>The restaurant is still waiting to hit some archievement.</p>
+                </div>
+            </div>
+        </div>
+        <br>
+    </div>
+
+    <div class="kitchen" id="kitchen">
+        <div>
+            <h1 class="divh1">KITCHEN</h1>
+            <hr>
+        </div>
+        <div>
+            <div style="float: left; margin: 20px; width: 30%; box-shadow: 0 0 10px 1px black;">
+                <img src="img/kitchen6.jpg" style="width: 100%;">
+                
+            </div>
+            <div style="margin: 20px; margin-top: 50px;">
+                <h2>We always wash the ingredients before we started to chop</h2>
+                <hr>
+                <p>Washing ingredients before cutting or cooking is a fundamental practice in food preparation, driven by various essential reasons. Firstly, it's a crucial step in ensuring food safety by removing contaminants such as dirt, dust, and potential pathogens like bacteria or pesticides from the surface of fruits, vegetables, and other culinary components. This is particularly critical for items consumed raw or with edible skins. Moreover, the act of washing enhances the overall taste and appearance of dishes by eliminating unwanted residues that can lead to off-flavors and gritty textures. Additionally, washing helps mitigate the risk of cross-contamination in the kitchen, where the proper sanitation of hands, utensils, and ingredients is vital for preventing foodborne illnesses. Lastly, it aids in preserving the freshness of ingredients by reducing surface moisture, which can contribute to mold growth and spoilage. Different ingredients may require specific washing methods, emphasizing the importance of following food safety guidelines to maintain a clean and safe kitchen environment.</p>
+            </div>
+        <div>
+            <div style="float: left; margin: 20px; width: 30%; box-shadow: 0 0 10px 1px black;">
+                <img src="img/kitchen1.jpg" style="width: 100%;">
+                
+            </div>
+            <div style="margin: 20px; margin-top: 50px;">
+                <h2>We always make sure the soup is hot before served</h2>
+                <hr>
+                <p>Firstly, temperature plays a pivotal role in enhancing the dining experience. Hot food, when served at the right temperature, allows flavors to fully develop, intensifying the taste and aroma of dishes. It also provides a comforting and satisfying sensation to diners, making their meal more enjoyable.
+                    Moreover, hot food and soups are often associated with safety and food hygiene. Cooking ingredients at sufficiently high temperatures helps kill harmful bacteria and pathogens, ensuring that the meal is safe for consumption. Restaurants prioritize food safety, and serving hot dishes is an integral part of that commitment.
+                    Additionally, certain cuisines and culinary traditions emphasize the appeal of hot, freshly prepared dishes. Whether it's a steaming bowl of soup on a chilly day or a sizzling plate of a favorite dish, the warmth adds to the sensory experience, creating a sense of comfort and indulgence that is deeply appreciated by diners.
+                    In summary, restaurants serve hot food and soups not only to elevate the taste and safety of the meal but also to cater to the emotional and sensory aspects of the dining experience, ensuring that patrons leave with a memorable and satisfying culinary experience.</p>
+            </div>
+        </div>
+        <div style="clear: both;">
+            <div style="clear: both; float: left; margin: 20px;  box-shadow: 0 0 10px 1px black;">
+                <img src="img/kitchen4.jpg" style="background-size: cover; height: 400px;">
+                
+            </div>
+            <div style=" margin: 20px; margin-top: 50px;">
+                <h2>We make sure the plating of food is in good condition</h2>
+                <hr>
+                <p>FPlating food before serving is a fundamental practice in the culinary world, driven by several compelling reasons that collectively enhance the dining experience. Foremost, it's an artful endeavor aimed at creating dishes that are visually captivating. The arrangement of food on a plate allows chefs to showcase their creativity and attention to detail, transforming a simple meal into a work of culinary art. The aesthetics of a dish not only stimulate diners' senses but also set the stage for their culinary journey.
+                    Moreover, plating serves as a means of achieving balance and composition in a dish. Chefs meticulously arrange components to ensure a harmonious combination of flavors, textures, and colors. This deliberate arrangement leads to a more well-rounded and enjoyable taste experience, where each bite is a thoughtful blend of elements carefully curated to please the palate.
+                    Additionally, plating plays a practical role in portion control. By arranging specific quantities of ingredients on each plate, chefs can ensure that every diner receives an equal and satisfying portion of the meal, maintaining consistency in both quality and presentation. This attention to detail not only reflects professionalism but also ensures that patrons leave the restaurant with a memorable and gratifying culinary experience.
+                    In essence, plating food before serving is a culinary craft that extends beyond aesthetics; it's a form of expression, a quest for culinary perfection, and a means of delighting diners through both visual and gustatory pleasures.</p>
+            </div>
+        </div>
+        <div style="clear: both;">
+            <h2 style="margin: 70px; margin-bottom: 0px; padding-top: 20px;">Take a look about our kitchen</h2>
+            <hr style="width: 90%;">
+            <div style="margin: 80px;  box-shadow: 0 0 10px 1px black;">
+                <video width="100%" autoplay loop>
+                    <source src="img/about.mp4" type="video/mp4">
+                </video> 
+            </div>
+            <br><br>
+        </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Copyright © 2024 AyamKokKok All Rights Reserved</p>
+    </footer>
+
+    <script>
+        /* reference https://youtu.be/T33NN_pPeNI?si=l6nw8ZS4sDhS0GpG*/
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) =>{
+                if(entry.isIntersecting){
+                    entry.target.classList.add("show");
+                }
+                else{
+                    entry.target.classList.remove("show");
+                }
+            });
+        });
+
+        const hidden = document.querySelectorAll(".hidden");
+        hidden.forEach((el) => observer.observe(el));
+
+    </script>
+</body>
+</html>
